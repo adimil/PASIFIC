@@ -17,6 +17,7 @@ This is the source code for **PASIFIC - Prediction of Alternative Structures for
 #### 2. Run **RFprediction.R** for classification scores:
 ###### Rscript RFprediction.R \<struct_file.out\>
 * \<struct_file.out\> - The perl script output file
+* **rf13-3.RData** is the built classifier. Should reside in the same folder.
 
 ## Dependencies:
 - perl
