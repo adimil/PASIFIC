@@ -17,3 +17,9 @@ This is the source code for **PASIFIC - Prediction of Alternative Structures for
 #### 2. Run **RFprediction.R** for classification scores:
 ###### Rscript RFprediction.R \<struct_file.out\>
 * \<struct_file.out\> - The perl script output file
+
+## Dependencies:
+- perl
+- The ViennaRNA Package (https://www.tbi.univie.ac.at/RNA/)
+- Rscript
+- randomForest R-package (https://cran.r-project.org/web/packages/randomForest/)
