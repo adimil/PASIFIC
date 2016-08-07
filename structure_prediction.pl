@@ -2,9 +2,6 @@
 use strict; 
 use Bio::SeqIO;
 
-# Paths
-my $VIENNA = "ViennaRNA/2.1.9/bin/";
-
 # Set params
 my ($tmpdir, $name, $p_P1, $p_simpAT, $p_limitAT, $p_findterm) = @ARGV;
 my @TMminenergy;
@@ -46,8 +43,8 @@ while (my $seq_obj = $seq_file->next_seq())
 		# remove polyU
 		if ($seq !~ /(?<polyU>(U{3,}(.{0,2}U+){0,3}.{0,5}$))/)
 		{
-			print $fh_out "$ID\t$seq\tCould not find terminator" . "\t"x54;
-			# exit;
+			print $fh_out "$ID\t$seq\tCould not find terminator" . "\t"x54 . "\n";
+			next;
 		}
 		else
 		{
@@ -124,9 +121,9 @@ while (my $seq_obj = $seq_file->next_seq())
 			#### fold the two options ####
 			##############################
 			my $folddesc = ">".$tmpdir."TM_".$name."_".$ID;
-			my @TMfold = `echo -e "$folddesc\n$seq\n$TMconstraint" | $VIENNA/RNAfold -p -d2 --noLP -C`;
+			my @TMfold = `printf "$folddesc\n$seq\n$TMconstraint" | RNAfold -p -d2 --noLP -C`;
 			$folddesc = ">".$tmpdir."AT_".$name."_".$ID;
-			my @ATfold = `echo -e "$folddesc\n$seq\n$ATconstraint" | $VIENNA/RNAfold -p -d2 --noLP -C`;
+			my @ATfold = `printf "$folddesc\n$seq\n$ATconstraint" | RNAfold -p -d2 --noLP -C`;
 			
 			
 			################################
@@ -269,7 +266,7 @@ while (my $seq_obj = $seq_file->next_seq())
 			###########################
 			# print naive fold params #
 			###########################
-			my @naivefold = `echo $seq | $VIENNA/RNAfold -p -d2 --noLP`;
+			my @naivefold = `echo $seq | RNAfold -p -d2 --noLP`;
 			$naivefold[1]=~ m/(?<Gnaive>(\-?\d+(\.\d+)?))/;
 			my $Gnaive = $+{Gnaive};
 			print $fh_out "$+{Gnaive}\t"; # irrelevant for current classifier
@@ -338,7 +335,7 @@ sub find_term
 	my ($noUseq) = @_;
 	
 	# get all local folding
-	my @helices = `echo $noUseq | $VIENNA/RNALfold -d2 --noLP -L45`;
+	my @helices = `echo $noUseq | RNALfold -d2 --noLP -L45`;
 	chomp(@helices);
 
 	# set all possible terminators in matrix with columns: fold, energy, start, length, end
@@ -417,7 +414,7 @@ sub find_term_noseq
 {
 	my ($tseq) = @_;
 	# get all local folding
-	my @helices = `echo $tseq | $VIENNA/RNALfold -d2 --noLP -L45`;
+	my @helices = `echo $tseq | RNALfold -d2 --noLP -L45`;
 	chomp(@helices);
 
 	# set all possible terminator in matrix with columns: fold, energy, start, length, end
@@ -528,7 +525,7 @@ sub find_antiterminator
 	}
 
 	# get all local folding
-	my @helices = `echo $no4seq | $VIENNA/RNALfold -d2 --noLP -L$sizelim`;
+	my @helices = `echo $no4seq | RNALfold -d2 --noLP -L$sizelim`;
 	chomp(@helices);
 
 	# set all possible terminators in matrix with columns: fold, energy, start, length, end
@@ -605,7 +602,7 @@ sub find_P1
 	my $P1seq_len = length($P1seq);
 	
 	# get all local folding
-	my @helices = `echo $P1seq | $VIENNA/RNALfold -d2 --noLP -L$seq_len`;
+	my @helices = `echo $P1seq | RNALfold -d2 --noLP -L$seq_len`;
 	chomp(@helices);
 
 	# set all possible terminators in matrix with columns: fold, energy, start, length, end
