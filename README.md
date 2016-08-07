@@ -26,7 +26,7 @@ This is the source code for **PASIFIC - Prediction of Alternative Structures for
 - randomForest R-package (https://cran.r-project.org/web/packages/randomForest/)
 
 ##Build classifier
-Use BuildClassifier.R to rebuild the classifier.
+Use **BuildClassifier.R** to rebuild the classifier.
 Data available in:
 **alldata.train.csv** - Data that were used for training.
 **alldata.test.csv** - Data that were used for testing.
