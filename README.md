@@ -28,5 +28,5 @@ This is the source code for **PASIFIC - Prediction of Alternative Structures for
 ##Build classifier
 Use **BuildClassifier.R** to rebuild the classifier.
 Data available in:
-**alldata.train.csv** - Data that were used for training.
-**alldata.test.csv** - Data that were used for testing.
+- **alldata.train.csv** - Data that were used for training.
+- **alldata.test.csv** - Data that were used for testing.
