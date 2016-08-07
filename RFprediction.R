@@ -1,8 +1,4 @@
-.libPaths(c('R',.libPaths()))
-
-#require(randomForest) || 
-#install.packages("randomForest", repos="http://cran.r-project.org")
-library(randomForest,lib.loc = "/WWW/httpd-users/molgen/Sorek/PASIFIC/R")
+require(randomForest) || install.packages("randomForest", repos="http://cran.r-project.org")
 
 # load the random forest 
 load("rf13-3.RData")
